@@ -16,11 +16,11 @@ export default function App() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
+    if (typeof window === 'undefined') return true;
     const saved = localStorage.getItem('theme_preference');
     if (saved === 'dark') return true;
     if (saved === 'light') return false;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return true;
   });
 
   // Apply dark mode class to html element
@@ -100,7 +100,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className={`min-h-screen bg-[#FAF9F5] dark:bg-[linear-gradient(45deg,#131c26_0%,#1a2634_100%)] text-[#1B1B1B] font-sans antialiased selection:bg-[#181818] selection:text-[#FAF9F5] transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`min-h-screen bg-[#0B0F17] text-[#F5F7FA] dark:bg-[linear-gradient(45deg,#131c26_0%,#1a2634_100%)] dark:text-[#F5F7FA] font-sans antialiased selection:bg-[#181818] selection:text-[#FAF9F5] transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
       {/* 1. Header TopAppBar */}
       <Header
         onOpenDemo={() => setDemoModalOpen(true)}
@@ -129,7 +129,7 @@ export default function App() {
           <SkillsEducationSection />
         </AnimatedSection>
 
-        {/* 6. Featured AI Projects Section */}
+        {/* 5. Featured AI Projects Section */}
         <AnimatedSection>
           <ProjectsSection />
         </AnimatedSection>

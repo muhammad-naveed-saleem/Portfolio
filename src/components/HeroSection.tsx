@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Github, ExternalLink, Sparkles, Mail, ArrowUpRight, User } from 'lucide-react';
+import { Github, ExternalLink, Sparkles, Mail, ArrowUpRight } from 'lucide-react';
 import { Typewriter } from './Typewriter';
 import { DEVELOPER_INFO } from '../data/mockData';
+import naveedImage from '../../naveed.jpeg';
 
 interface HeroSectionProps {
   onOpenDemo: () => void;
@@ -10,7 +11,8 @@ interface HeroSectionProps {
 }
 
 const ROTATING_ROLES = [
-  'AGENTIC AI ENGINEER',
+  "Agentic AI Engineer",
+  'AI ENGINEER',
   'STATEFUL LANGGRAPH ARCHITECT',
   'HYBRID RAG & VECTOR MEMORY SPECIALIST',
   'DETERMINISTIC AGENT SYSTEMS ENGINEER',
@@ -42,31 +44,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDemo, onExploreS
     <section
       ref={containerRef}
       id="hero"
+      aria-labelledby="hero-heading"
       className="pt-[90px] sm:pt-[120px] pb-16 sm:pb-24 px-4 sm:px-margin max-w-[1728px] mx-auto relative overflow-hidden bg-[#FAF9F5] dark:bg-[#121212] text-[#1B1B1B] dark:text-[#FAF9F5] transition-colors duration-300 border-b border-[#D9D7D0]/40 dark:border-neutral-800 snap-start scroll-mt-20"
     >
       <motion.div style={{ filter }} className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center py-6 sm:py-10">
 
         {/* Left Column: Signature Circle Backdrop with Placeholder */}
-        <div className="lg:col-span-6 flex justify-center items-center relative order-2 lg:order-1">
+        <div className="lg:col-span-6 flex justify-center items-end relative order-2 lg:order-1 pt-2 sm:pt-4">
           <div className="relative w-[280px] h-[320px] sm:w-[380px] sm:h-[420px] md:w-[440px] md:h-[480px] flex justify-center items-end">
-
-            {/* Dark/Warm Circle Background matching app palette */}
-            <div className="absolute top-4 sm:top-6 w-[260px] h-[260px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px] rounded-full bg-[#181818] dark:bg-neutral-800 border border-[#181818]/10 dark:border-neutral-700 shadow-2xl z-0 transition-transform duration-700 hover:scale-102"></div>
-
-            {/* Developer Avatar Placeholder */}
-            <div className="relative z-10 w-[240px] sm:w-[320px] md:w-[360px] h-[85%] sm:h-[90%] flex flex-col items-center justify-center bg-[#181818] dark:bg-neutral-900 border-2 border-[#D9D7D0] dark:border-neutral-700 rounded-b-full sm:rounded-b-[180px] shadow-2xl text-center px-4 overflow-hidden group">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#FAF9F5]/10 dark:bg-neutral-800 border border-white/20 flex items-center justify-center mb-3 text-[#FAF9F5] group-hover:scale-110 transition-transform duration-500">
-                <User size={42} className="text-[#FAF9F5] dark:text-[#3BB0C8]" />
-              </div>
-              <span className="font-serif text-3xl sm:text-4xl font-bold text-[#FAF9F5] tracking-wider mb-1">
-                MN
-              </span>
-              <span className="font-mono text-[10px] sm:text-xs text-[#FAF9F5]/70 dark:text-[#3BB0C8] uppercase tracking-widest font-semibold bg-white/10 px-3 py-1 rounded-full border border-white/10">
-                AI System Engineer
+            {/* Developer Portrait */}
+            <div className="relative z-10 w-[240px] sm:w-[320px] md:w-[320px] h-[90%] sm:h-[95%] flex items-end justify-center bg-[#181818] dark:bg-neutral-900 rounded-b-full sm:rounded-b-[180px] shadow-2xl overflow-hidden group translate-y-4 sm:translate-y-6">
+              <img
+                src={naveedImage}
+                alt="Muhammad Naveed, AI Engineer and Agentic AI specialist portrait"
+                className="h-full w-full object-cover object-center scale-[1.08] group-hover:scale-[1.12] transition-transform duration-500"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0B0F17]/80 via-[#0B0F17]/20 to-transparent" />
+              <span className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] sm:text-xs text-[#FAF9F5] uppercase tracking-widest font-semibold bg-[#0B0F17]/70 px-3 py-1 rounded-full border border-white/10 backdrop-blur-sm">
+                AI SYSTEM ENGINEER
               </span>
             </div>
-
-            {/* Floating Live Badge Removed */}
           </div>
         </div>
 
@@ -74,7 +71,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDemo, onExploreS
         <div className="lg:col-span-6 flex flex-col justify-center items-start text-left order-1 lg:order-2">
 
           {/* Main Title Name */}
-          <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[84px] font-bold leading-[0.95] tracking-tight text-[#1B1B1B] dark:text-[#FAF9F5] mb-4">
+          <h1 id="hero-heading" className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[84px] font-bold leading-[0.95] tracking-tight text-[#1B1B1B] dark:text-[#FAF9F5] mb-4">
             Muhammad<br />
             <span>Naveed</span>
             <span className="text-[#181818] dark:text-[#3BB0C8]">.</span>
@@ -82,14 +79,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDemo, onExploreS
 
           {/* Dynamic Typewriter Subtitle Tagline */}
           <div className="font-label text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#181818] dark:text-[#3BB0C8] mb-6 flex items-center gap-2 min-h-[28px]">
-            <Typewriter speed={40} deleteSpeed={20}>
+            <Typewriter speed={40} deleteSpeed={18}>
               {ROTATING_ROLES[roleIndex]}
             </Typewriter>
           </div>
 
           {/* Description Paragraph */}
           <p className="font-body-lg text-sm sm:text-base text-[#8C8880] dark:text-neutral-300 max-w-xl leading-relaxed mb-8 font-normal">
-            Architecting fault-tolerant, stateful multi-agent systems with LangGraph, hybrid vector memory, and custom deterministic tool calling. Engineered for sub-second execution, non-hallucinatory schema enforcement, and zero-trust safety guardrails.
+            Muhammad Naveed is an AI Engineer building agentic AI systems, LangGraph orchestration, hybrid RAG pipelines, and deterministic multi-agent architectures for production-grade automation.
           </p>
 
           {/* Action CTAs */}
