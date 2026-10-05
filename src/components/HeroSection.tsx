@@ -121,6 +121,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDemo, onExploreS
             </a>
           </div>
 
+          <div className="mt-8 w-full max-w-xl" aria-label="Core AI engineering specialties">
+            <p className="text-[10px] font-label uppercase tracking-[0.18em] text-[#8C8880] dark:text-neutral-400 mb-3">
+              Specialties
+            </p>
+            <ul className="flex flex-wrap gap-2 text-[11px] font-medium text-[#1B1B1B] dark:text-[#E5E7EB]">
+              {[
+                'LangGraph',
+                'Multi-Agent Systems',
+                'LLM Orchestration',
+                'Hybrid RAG',
+                'Agentic AI',
+                'AI Automation',
+                'Vector Memory',
+                'Deterministic Tool Calling'
+              ].map((item) => (
+                <li key={item} className="px-2.5 py-1.5 rounded-full border border-[#D9D7D0] dark:border-neutral-700 bg-[#F0EFEB] dark:bg-neutral-900/80">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
 
       </motion.div>
