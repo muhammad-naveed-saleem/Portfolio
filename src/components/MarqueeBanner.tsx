@@ -1,86 +1,112 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { Sparkles, Cpu, ShieldCheck, Zap, Bot, Database, Workflow, CheckCircle2, ArrowRight, Layers, Terminal, Code2 } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+
+type TechItem = {
+  label: string;
+};
+
+const techRows: TechItem[][] = [
+  [
+    { label: 'PyTorch' },
+    { label: 'Python' },
+    { label: 'React' },
+    { label: 'TypeScript' },
+    { label: 'Node.js' },
+    { label: 'PostgreSQL' },
+    { label: 'LangChain' },
+    { label: 'LLM Ops' },
+    { label: 'RAG' },
+    { label: 'MCP' },
+    { label: 'AI Agents' },
+    { label: 'Prompt Design' },
+  ],
+  [
+    { label: 'FastAPI' },
+    { label: 'Next.js' },
+    { label: 'Tailwind' },
+    { label: 'Redis' },
+    { label: 'TensorFlow' },
+    { label: 'Pandas' },
+    { label: 'Vector Search' },
+    { label: 'Data Pipelines' },
+    { label: 'DevOps' },
+    { label: 'APIs' },
+    { label: 'Automation' },
+    { label: 'Product Thinking' },
+  ],
+];
 
 export const MarqueeBanner: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const trackRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  // Bind useScroll to track window vertical scroll position
-  const { scrollY } = useScroll();
+  useEffect(() => {
+    let rafId = 0;
 
-  // Passing scrollY to useTransform and multiplying by -1 moves text in opposite direction to page scroll
-  const xReverse = useTransform(scrollY, (value) => value * -0.55);
-  const xForward = useTransform(scrollY, (value) => value * 0.55 - 400);
+    const updateTracks = () => {
+      const section = sectionRef.current;
+      if (!section) return;
 
-  const row1Items = [
-    { text: 'STATEFUL MULTI-AGENT GRAPH ORCHESTRATION', icon: Workflow },
-    { text: 'ENTERPRISE HYBRID RAG & VECTOR MEMORY', icon: Database },
-    { text: 'DETERMINISTIC GUARDRAILS & SCHEMA ENFORCEMENT', icon: ShieldCheck },
-    { text: 'HIGH-THROUGHPUT GEMINI 1.5 PRO & FLASH INTEGRATIONS', icon: Zap },
-    { text: 'NON-HALLUCINATORY TOOL & FUNCTION CALLING', icon: Bot },
-    { text: 'MODEL CONTEXT PROTOCOL (MCP) IMPLEMENTATION', icon: Cpu },
-    { text: 'AUTONOMOUS REASONING & REFLECTION LOOPS', icon: Sparkles },
-    { text: 'SUB-SECOND LATENCY STREAM PARSING', icon: CheckCircle2 },
-  ];
+      const rect = section.getBoundingClientRect();
+      const centerOffset = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
 
-  const row2Items = [
-    { text: 'FULL-STACK REACT & NEXT.JS SYSTEM ARCHITECTURE', icon: Code2 },
-    { text: 'DISTRIBUTED SYSTEMS & MICROSERVICES ORCHESTRATION', icon: Layers },
-    { text: 'REAL-TIME WEBSOCKET & SSE DATA STREAMS', icon: Terminal },
-    { text: 'HIGH-PERFORMANCE CANVAS & VECTOR ANIMATION ENGINES', icon: Sparkles },
-    { text: 'LLM EVALUATION PIPELINES & AGENT MEMORY BENCHMARKS', icon: ArrowRight },
-    { text: 'SECURE AUTHENTICATION & OAUTH2 INTEGRATIONS', icon: ShieldCheck },
-    { text: 'PRODUCTION CLOUD RUN & KUBERNETES DEPLOYMENTS', icon: Cpu },
-  ];
+      trackRefs.current.forEach((track, index) => {
+        if (!track) return;
 
-  const marquee1 = [...row1Items, ...row1Items, ...row1Items];
-  const marquee2 = [...row2Items, ...row2Items, ...row2Items];
+        const direction = index % 2 === 0 ? -1 : 1;
+        const offset = centerOffset * (index === 0 ? 14 : 10);
+        const clampedOffset = Math.max(-10, Math.min(10, direction * offset));
+        track.style.transform = `translate3d(${clampedOffset}px, 0, 0)`;
+      });
+
+      rafId = window.requestAnimationFrame(updateTracks);
+    };
+
+    rafId = window.requestAnimationFrame(updateTracks);
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full bg-[#181818] dark:bg-neutral-900/90 text-[#FAF9F5] py-4 sm:py-5 border-y border-white/10 dark:border-neutral-800 overflow-hidden relative shadow-xl my-4 select-none"
+    <section
+      ref={sectionRef}
+      className="relative my-4 w-full overflow-hidden border-y border-white/10 bg-[#181818] py-4 text-[#FAF9F5] shadow-xl dark:border-neutral-800 dark:bg-neutral-900/90 sm:py-5"
+      aria-label="Technology marquee"
     >
-      {/* Top Row: Horizontal Ticker moving left as page scrolls down (-1 multiplier on scrollY) */}
-      <motion.div
-        style={{ x: xReverse }}
-        className="flex items-center gap-5 whitespace-nowrap mb-3 will-change-transform"
-      >
-        {marquee1.map((item, idx) => {
-          const Icon = item.icon;
-          return (
-            <div
-              key={`row1-${item.text}-${idx}`}
-              className="flex items-center gap-2 shrink-0 font-label text-xs sm:text-sm font-bold tracking-wider text-[#FAF9F5]/90 dark:text-neutral-200 uppercase px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xs shadow-sm"
-            >
-              <Icon size={14} className="text-emerald-400 shrink-0" />
-              <span>{item.text}</span>
-              <span className="text-emerald-400/40 ml-3">•</span>
-            </div>
-          );
-        })}
-      </motion.div>
+      {techRows.map((row, rowIndex) => {
+        const duplicatedRow = [...row, ...row];
+        const isReverse = rowIndex % 2 === 1;
 
-      {/* Bottom Row: Horizontal Ticker moving right as page scrolls down */}
-      <motion.div
-        style={{ x: xForward }}
-        className="flex items-center gap-5 whitespace-nowrap will-change-transform"
-      >
-        {marquee2.map((item, idx) => {
-          const Icon = item.icon;
-          return (
+        return (
+          <div
+            key={rowIndex}
+            className="overflow-hidden whitespace-nowrap"
+          >
             <div
-              key={`row2-${item.text}-${idx}`}
-              className="flex items-center gap-2 shrink-0 font-label text-xs sm:text-sm font-bold tracking-wider text-[#FAF9F5]/80 dark:text-neutral-300 uppercase px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 backdrop-blur-xs shadow-sm"
+              ref={(el) => {
+                trackRefs.current[rowIndex] = el;
+              }}
+              className="flex w-max min-w-full items-center gap-3 whitespace-nowrap px-1 py-2 will-change-transform"
+              style={{
+                transform: 'translate3d(0,0,0)',
+              }}
             >
-              <Icon size={14} className="text-cyan-400 shrink-0" />
-              <span>{item.text}</span>
-              <span className="text-cyan-400/40 ml-3">•</span>
+              {duplicatedRow.map((item, index) => (
+                <div
+                  key={`${rowIndex}-${item.label}-${index}`}
+                  className="flex shrink-0 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 font-label text-[10px] font-bold uppercase tracking-[0.22em] text-[#FAF9F5]/85 shadow-sm sm:text-xs"
+                >
+                  <span className={isReverse ? 'text-cyan-400' : 'text-[#FBBF24]'}>◆</span>
+                  <span>{item.label}</span>
+                  <span className={isReverse ? 'text-cyan-400/60' : 'text-[#FBBF24]/60'}>•</span>
+                </div>
+              ))}
             </div>
-          );
-        })}
-      </motion.div>
-    </div>
+          </div>
+        );
+      })}
+    </section>
   );
 };
 

@@ -1,19 +1,21 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-page-bg: #FBFBFA;
+  --color-page-bg: #FFFFE3;
   --color-panel-bg: #FFFFFF;
   --color-soft-card: #F4F4F2;
   --color-soft-card-2: #F8F8F6;
   --color-white-card: #FFFFFF;
-  --color-white-soft: #FBFBFA;
+  --color-white-soft: #FFFFE3;
   --color-text: #0A252E;
   --color-muted: #505A5F;
   --color-muted-light: #949CA0;
   --color-line: #E2E4E5;
   --color-black: #0A252E;
   --color-deep-black: #061A21;
-  --color-accent-green: #15803D;
+  --color-accent-green: #1F3B36;
 
   --font-lightmode: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Roboto", sans-serif;
   --font-darkmode: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -93,14 +95,80 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
   scroll-snap-type: y proximity;
+  -webkit-overflow-scrolling: touch;
+  background: #FFFFE3;
+}
+
+html.dark {
+  background: #131c26;
 }
 
 body {
-  background-color: #FBFBFA;
+  min-height: 100vh;
+  background: #FFFFE3;
   color: #0A252E;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Roboto", sans-serif;
   overflow-x: hidden;
+  cursor: none;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(250, 204, 21, 0.85);
+  background: transparent;
+  box-shadow: 0 0 12px rgba(250, 204, 21, 0.5), 0 0 0 1px rgba(250, 204, 21, 0.25);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-cursor::after {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(251, 146, 60, 0.9);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px rgba(251, 146, 60, 0.7);
+}
+
+.custom-cursor.cursor--active {
+  width: 58px;
+  height: 58px;
+  background: transparent;
+  border-color: rgba(250, 204, 21, 1);
+  box-shadow: 0 0 18px rgba(250, 204, 21, 0.7), 0 0 0 1px rgba(250, 204, 21, 0.35);
+}
+
+html.dark .custom-cursor {
+  border-color: rgba(250, 204, 21, 0.9);
+  background: transparent;
+  box-shadow: 0 0 14px rgba(250, 204, 21, 0.55), 0 0 0 1px rgba(250, 204, 21, 0.3);
+}
+
+html.dark .custom-cursor.cursor--active {
+  background: transparent;
+  border-color: rgba(250, 204, 21, 1);
+  box-shadow: 0 0 22px rgba(250, 204, 21, 0.75), 0 0 0 1px rgba(250, 204, 21, 0.4);
+}
+
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+
+  body {
+    cursor: auto;
+  }
 }
 
 /* Base Light Mode utility mappings to match color palette breakdown */

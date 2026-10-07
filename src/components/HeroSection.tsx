@@ -21,6 +21,7 @@ const ROTATING_ROLES = [
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDemo, onExploreStudio }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [roleIndex, setRoleIndex] = useState(0);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,6 +29,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDemo, onExploreS
     }, 3600);
     return () => clearInterval(interval);
   }, []);
+
+  const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
+    const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
+
+    setTilt({
+      x: offsetX * 18,
+      y: offsetY * -18,
+    });
+  };
+
+  const handlePointerLeave = () => setTilt({ x: 0, y: 0 });
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -37,33 +51,78 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDemo, onExploreS
   const filter = useTransform(
     scrollYProgress,
     [0, 1],
-    ['blur(0px)', 'blur(10px)']
+    ['blur(0px)', 'blur(12px)']
   );
+
+  const portraitY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const portraitX = useTransform(scrollYProgress, [0, 1], [0, 22]);
+  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const cardRotate = useTransform(scrollYProgress, [0, 1], [0, 10]);
 
   return (
     <section
       ref={containerRef}
       id="hero"
       aria-labelledby="hero-heading"
-      className="pt-[90px] sm:pt-[120px] pb-16 sm:pb-24 px-4 sm:px-margin max-w-[1728px] mx-auto relative overflow-hidden bg-[#FAF9F5] dark:bg-[#121212] text-[#1B1B1B] dark:text-[#FAF9F5] transition-colors duration-300 border-b border-[#D9D7D0]/40 dark:border-neutral-800 snap-start scroll-mt-20"
+      className="pt-[90px] sm:pt-[120px] pb-16 sm:pb-24 px-4 sm:px-margin max-w-[1728px] mx-auto relative overflow-hidden bg-[#FFFFE3] dark:bg-[#121212] text-[#1B1B1B] dark:text-[#FAF9F5] transition-colors duration-300 border-b border-[#D9D7D0]/40 dark:border-neutral-800 scroll-mt-20"
     >
       <motion.div style={{ filter }} className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center py-6 sm:py-10">
 
         {/* Left Column: Signature Circle Backdrop with Placeholder */}
         <div className="lg:col-span-6 flex justify-center items-end relative order-2 lg:order-1 pt-2 sm:pt-4">
-          <div className="relative w-[280px] h-[320px] sm:w-[380px] sm:h-[420px] md:w-[440px] md:h-[480px] flex justify-center items-end">
+          <div
+            className="relative w-[280px] h-[320px] sm:w-[380px] sm:h-[420px] md:w-[440px] md:h-[480px] flex justify-center items-end"
+            onMouseMove={handlePointerMove}
+            onMouseLeave={handlePointerLeave}
+          >
             {/* Developer Portrait */}
-            <div className="relative z-10 w-[240px] sm:w-[320px] md:w-[320px] h-[90%] sm:h-[95%] flex items-end justify-center bg-[#181818] dark:bg-neutral-900 rounded-b-full sm:rounded-b-[180px] shadow-2xl overflow-hidden group translate-y-4 sm:translate-y-6">
-              <img
-                src={naveedImage}
-                alt="Muhammad Naveed, AI Engineer and Agentic AI specialist portrait"
-                className="h-full w-full object-cover object-center scale-[1.08] group-hover:scale-[1.12] transition-transform duration-500"
+            <motion.div
+              className="relative z-10 w-[240px] sm:w-[320px] md:w-[320px] h-[90%] sm:h-[95%] flex items-end justify-center bg-[#181818] dark:bg-neutral-900 rounded-b-full sm:rounded-b-[180px] shadow-2xl overflow-hidden translate-y-4 sm:translate-y-6"
+              style={{
+                y: portraitY,
+                x: portraitX,
+                scale: portraitScale,
+                rotateX: tilt.y,
+                rotateY: tilt.x,
+                rotateZ: cardRotate,
+                transformPerspective: 1200,
+                transformStyle: 'preserve-3d',
+                boxShadow: '0 30px 70px rgba(16, 24, 40, 0.22), 0 14px 30px rgba(0, 0, 0, 0.15)',
+                transition: 'transform 0.35s ease, box-shadow 0.35s ease',
+              }}
+            >
+              <div
+                className="absolute inset-0 z-10 rounded-b-full sm:rounded-b-[180px]"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.30), rgba(255,255,255,0) 30%, rgba(11,15,23,0.22) 100%)',
+                  transform: 'translateZ(24px)',
+                }}
               />
+
+              <div
+                className="absolute inset-0 z-0"
+                style={{
+                  background: 'radial-gradient(circle at 50% 20%, rgba(34,211,238,0.12), transparent 32%), linear-gradient(180deg, rgba(3,7,11,0.08), rgba(3,7,11,0.35))',
+                  transform: 'translateZ(0px)',
+                }}
+              />
+
+              <motion.img
+                src={naveedImage}
+                alt="Muhammad Naveed, AI Engineer based in Karachi, Pakistan"
+                className="h-full w-full object-cover object-center scale-[1.05] transition-all duration-500"
+                style={{
+                  y: portraitY,
+                  scale: portraitScale,
+                  transform: 'translateZ(32px)',
+                }}
+              />
+
               <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0B0F17]/80 via-[#0B0F17]/20 to-transparent" />
-              <span className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] sm:text-xs text-[#FAF9F5] uppercase tracking-widest font-semibold bg-[#0B0F17]/70 px-3 py-1 rounded-full border border-white/10 backdrop-blur-sm">
+              <span className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] sm:text-xs text-[#FAF9F5] uppercase tracking-widest font-semibold bg-[#0B0F17]/70 px-3 py-1 rounded-full border border-white/10 backdrop-blur-sm" style={{ transform: 'translateZ(48px)' }}>
                 AI SYSTEM ENGINEER
               </span>
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -74,11 +133,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDemo, onExploreS
           <h1 id="hero-heading" className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[84px] font-bold leading-[0.95] tracking-tight text-[#1B1B1B] dark:text-[#FAF9F5] mb-4">
             Muhammad<br />
             <span>Naveed</span>
-            <span className="text-[#181818] dark:text-[#3BB0C8]">.</span>
+            <span className="text-[#181818] dark:text-[#1F3B36]">.</span>
           </h1>
 
           {/* Dynamic Typewriter Subtitle Tagline */}
-          <div className="font-label text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#181818] dark:text-[#3BB0C8] mb-6 flex items-center gap-2 min-h-[28px]">
+          <div className="font-label text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#181818] dark:text-[#1F3B36] mb-6 flex items-center gap-2 min-h-[28px]">
             <Typewriter speed={40} deleteSpeed={18}>
               {ROTATING_ROLES[roleIndex]}
             </Typewriter>
@@ -103,7 +162,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDemo, onExploreS
               onClick={onExploreStudio}
               className="px-5 py-3 sm:px-6 sm:py-3.5 md:px-8 md:py-4 bg-[#F0EFEB] dark:bg-neutral-800 text-[#1B1B1B] dark:text-[#FAF9F5] hover:bg-[#E9E8E4] dark:hover:bg-neutral-700 border border-[#D9D7D0] dark:border-neutral-700 font-label text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 rounded-lg cursor-pointer flex items-center justify-center gap-2 group w-full sm:w-auto"
             >
-              <Sparkles size={16} className="text-[#181818] dark:text-[#3BB0C8] shrink-0" />
+              <Sparkles size={16} className="text-[#181818] dark:text-[#1F3B36] shrink-0" />
               <span>VIEW SYSTEMS</span>
               <ArrowUpRight size={14} className="opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
             </button>

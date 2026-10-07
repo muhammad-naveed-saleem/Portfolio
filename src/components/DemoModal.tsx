@@ -218,7 +218,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
 
         {step === 3 && (
           <div className="text-center py-4">
-            <div className="w-16 h-16 bg-[#F0EFEB] dark:bg-neutral-800 text-[#181818] dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#D9D7D0] dark:border-neutral-700">
+            <div className="w-16 h-16 bg-[#F0EFEB] dark:bg-neutral-800 text-[#181818] dark:text-[#1F3B36] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#D9D7D0] dark:border-neutral-700">
               <CheckCircle2 size={36} />
             </div>
 

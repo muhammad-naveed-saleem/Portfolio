@@ -33,9 +33,9 @@ export const TestimonialSection: React.FC = () => {
   };
 
   return (
-    <section className="py-[100px] md:py-[160px] px-margin max-w-[1200px] mx-auto flex flex-col items-center text-center bg-[#FAF9F5] dark:bg-[#0B0F17] border-t border-[#D9D7D0]/30 dark:border-neutral-800 transition-colors duration-300">
+    <section className="py-[100px] md:py-[160px] px-margin max-w-[1200px] mx-auto flex flex-col items-center text-center bg-[#FFFFE3] dark:bg-[#0B0F17] border-t border-[#D9D7D0]/30 dark:border-neutral-800 transition-colors duration-300">
       <div className="inline-flex items-center gap-2.5 bg-[#F0EFEB] dark:bg-neutral-800 px-5 py-2.5 rounded-full mb-8 shadow-2xs border border-transparent dark:border-neutral-700">
-        <span className="w-2.5 h-2.5 rounded-full bg-[#181818] dark:bg-emerald-400 animate-pulse"></span>
+        <span className="w-2.5 h-2.5 rounded-full bg-[#181818] dark:bg-[#1F3B36] animate-pulse"></span>
         <span className="font-label text-sm uppercase tracking-wider text-[#1B1B1B] dark:text-[#FAF9F5] font-extrabold">
           Engineering Perspective & Philosophy
         </span>

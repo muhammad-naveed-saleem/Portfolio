@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
+import { AboutMeSection } from './components/AboutMeSection';
 import { TrustStrip } from './components/TrustStrip';
 import { MarqueeBanner } from './components/MarqueeBanner';
 import { SkillsEducationSection } from './components/SkillsEducationSection';
@@ -11,10 +12,15 @@ import { ContactSection } from './components/ContactSection';
 import { DemoModal } from './components/DemoModal';
 import { Footer } from './components/Footer';
 import { AnimatedSection } from './components/AnimatedSection';
+import { CustomCursor } from './components/CustomCursor';
 
 export default function App() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'about-me'>(() => {
+    if (typeof window === 'undefined') return 'home';
+    return window.location.pathname === '/about-me' ? 'about-me' : 'home';
+  });
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     if (typeof window === 'undefined') return true;
     const saved = localStorage.getItem('theme_preference');
@@ -22,6 +28,23 @@ export default function App() {
     if (saved === 'light') return false;
     return true;
   });
+
+  const syncRoute = (nextRoute: 'home' | 'about-me') => {
+    setCurrentRoute(nextRoute);
+    const targetPath = nextRoute === 'about-me' ? '/about-me' : '/';
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({}, '', targetPath);
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentRoute(window.location.pathname === '/about-me' ? 'about-me' : 'home');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Apply dark mode class to html element
   useEffect(() => {
@@ -35,7 +58,7 @@ export default function App() {
   // Sync with OS theme preference when system setting changes (unless overridden)
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     const handleSystemThemeChange = (e: MediaQueryListEvent) => {
       const userPreference = localStorage.getItem('theme_preference');
       // If user has not set a manual override, follow the OS setting dynamically
@@ -58,29 +81,48 @@ export default function App() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
+
+    if (sectionId === 'about-me') {
+      syncRoute('about-me');
+      return;
+    }
+
+    if (currentRoute === 'about-me') {
+      syncRoute('home');
+      setTimeout(() => {
+        const elem = document.getElementById(sectionId);
+        if (elem) {
+          const y = elem.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 50);
+      return;
+    }
+
     if (sectionId === 'hero') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
+
     const elem = document.getElementById(sectionId);
     if (elem) {
-      const yOffset = -80; // Account for fixed top navigation bar
-      const y = elem.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      const y = elem.getBoundingClientRect().top + window.scrollY - 80;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
   useEffect(() => {
-    const sectionIds = ['hero', 'skills', 'projects', 'updates', 'contact'];
+    const sectionIds = ['hero', 'about-me', 'skills', 'projects', 'updates', 'contact'];
 
     const handleScroll = () => {
-      // If at bottom of page, highlight contact
+      if (currentRoute === 'about-me') return;
+
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
         setActiveSection('contact');
         return;
       }
 
-      const scrollPosition = window.scrollY + 180; // header offset
+      const scrollPosition = window.scrollY + 180;
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const section = document.getElementById(sectionIds[i]);
@@ -97,10 +139,43 @@ export default function App() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [currentRoute]);
+
+  if (currentRoute === 'about-me') {
+    return (
+      <div className={`min-h-screen bg-[#FFFFE3] text-[#1B1B1B] dark:bg-[linear-gradient(45deg,#131c26_0%,#1a2634_100%)] dark:text-[#F5F7FA] font-sans antialiased selection:bg-[#181818] selection:text-[#FAF9F5] transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
+        <CustomCursor />
+        <Header
+          onOpenDemo={() => setDemoModalOpen(true)}
+          activeSection="about-me"
+          onNavigate={scrollToSection}
+          isDarkMode={isDarkMode}
+          onToggleDarkMode={toggleDarkMode}
+        />
+
+        <main className="pt-28">
+          <AboutMeSection
+            isDedicatedPage
+            onBackToHome={() => syncRoute('home')}
+          />
+        </main>
+
+        <Footer
+          onOpenDemo={() => setDemoModalOpen(true)}
+          onNavigate={scrollToSection}
+        />
+
+        <DemoModal
+          isOpen={demoModalOpen}
+          onClose={() => setDemoModalOpen(false)}
+        />
+      </div>
+    );
+  }
 
   return (
-    <div className={`min-h-screen bg-[#0B0F17] text-[#F5F7FA] dark:bg-[linear-gradient(45deg,#131c26_0%,#1a2634_100%)] dark:text-[#F5F7FA] font-sans antialiased selection:bg-[#181818] selection:text-[#FAF9F5] transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`min-h-screen bg-[#FFFFE3] text-[#1B1B1B] dark:bg-[linear-gradient(45deg,#131c26_0%,#1a2634_100%)] dark:text-[#F5F7FA] font-sans antialiased selection:bg-[#181818] selection:text-[#FAF9F5] transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
+      <CustomCursor />
       {/* 1. Header TopAppBar */}
       <Header
         onOpenDemo={() => setDemoModalOpen(true)}
@@ -119,12 +194,12 @@ export default function App() {
           />
         </AnimatedSection>
 
-        {/* 3. Trust Strip */}
+        {/* 4. Trust Strip */}
         <AnimatedSection delay={0.1}>
           <TrustStrip />
         </AnimatedSection>
 
-        {/* 4. Skills & Education Section */}
+        {/* 5. Skills & Education Section */}
         <AnimatedSection>
           <SkillsEducationSection />
         </AnimatedSection>

@@ -7,7 +7,7 @@ export const UpdatesSection: React.FC = () => {
   const [selectedArticle, setSelectedArticle] = useState<ArticleUpdate | null>(null);
 
   return (
-    <section id="updates" className="py-[80px] md:py-[120px] px-margin max-w-[1728px] mx-auto bg-[#FAF9F5] dark:bg-[#0B0F17] border-t border-[#D9D7D0]/30 dark:border-neutral-800 transition-colors duration-300">
+    <section id="updates" className="py-[80px] md:py-[120px] px-margin max-w-[1728px] mx-auto bg-[#FFFFE3] dark:bg-[#0B0F17] border-t border-[#D9D7D0]/30 dark:border-neutral-800 transition-colors duration-300">
       <div className="flex justify-between items-end mb-12">
         <div>
           <h2 className="font-display text-2xl md:text-3xl lg:text-h2 font-semibold text-[#1B1B1B] dark:text-[#FAF9F5]">Latest Updates</h2>

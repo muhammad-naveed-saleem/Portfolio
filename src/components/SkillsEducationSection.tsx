@@ -44,7 +44,7 @@ export const SkillsEducationSection: React.FC = () => {
       icon: <Terminal size={20} className="text-[#181818] dark:text-[#FAF9F5]" />,
       description: 'Core languages for core backend, data structures, and agent orchestration.',
       skills: [
-        { name: 'Python', percentage: 95, icon: <span className="text-emerald-600 dark:text-emerald-400 font-mono font-bold text-xs">🐍</span>, tag: 'AI & Data' },
+        { name: 'Python', percentage: 95, icon: <span className="text-emerald-600 dark:text-[#1F3B36] font-mono font-bold text-xs">🐍</span>, tag: 'AI & Data' },
         { name: 'SQL', percentage: 90, icon: <Database size={16} className="text-blue-600 dark:text-blue-400" />, tag: 'Relational' },
         { name: 'JavaScript', percentage: 85, icon: <Code2 size={16} className="text-amber-500 dark:text-amber-400" />, tag: 'Web & Async' },
       ]
@@ -79,7 +79,7 @@ export const SkillsEducationSection: React.FC = () => {
       icon: <Globe size={20} className="text-[#181818] dark:text-[#FAF9F5]" />,
       description: 'Automated web extraction, headless browser orchestration, and structured HTML parsing.',
       skills: [
-        { name: 'BeautifulSoup', percentage: 95, icon: <FileCode size={16} className="text-emerald-600 dark:text-emerald-400" />, tag: 'HTML Parsing' },
+        { name: 'BeautifulSoup', percentage: 95, icon: <FileCode size={16} className="text-emerald-600 dark:text-[#1F3B36]" />, tag: 'HTML Parsing' },
         { name: 'Selenium', percentage: 90, icon: <Bot size={16} className="text-green-600 dark:text-green-400" />, tag: 'Browser Automation' },
         { name: 'Scrapy', percentage: 88, icon: <Terminal size={16} className="text-amber-500" />, tag: 'Crawling Framework' },
         { name: 'Playwright', percentage: 85, icon: <Globe size={16} className="text-sky-500" />, tag: 'Headless Testing' },
@@ -101,7 +101,7 @@ export const SkillsEducationSection: React.FC = () => {
       icon: <ShieldCheck size={20} className="text-[#181818] dark:text-[#FAF9F5]" />,
       description: 'Type-safe schema constraints, vector databases, and prompt shielding.',
       skills: [
-        { name: 'Pinecone Vector DB', percentage: 94, icon: <Database size={16} className="text-emerald-600 dark:text-emerald-400" />, tag: 'Dense Vectors' },
+        { name: 'Pinecone Vector DB', percentage: 94, icon: <Database size={16} className="text-emerald-600 dark:text-[#1F3B36]" />, tag: 'Dense Vectors' },
         { name: 'Pydantic & Zod Schemas', percentage: 96, icon: <ShieldCheck size={16} className="text-indigo-600 dark:text-indigo-400" />, tag: 'Schema Lock' },
         { name: 'Adversarial Defense', percentage: 88, icon: <ShieldCheck size={16} className="text-rose-500" />, tag: 'Safety Shield' },
       ]
@@ -160,7 +160,7 @@ export const SkillsEducationSection: React.FC = () => {
   ];
 
   return (
-    <section id="skills" className="py-16 md:py-20 px-margin max-w-[1728px] mx-auto bg-[#FAF9F5] dark:bg-[#121212] border-t border-[#D9D7D0]/40 dark:border-neutral-800 transition-colors duration-300">
+    <section id="skills" className="py-16 md:py-20 px-margin max-w-[1728px] mx-auto bg-[#FFFFE3] dark:bg-[#121212] border-t border-[#D9D7D0]/40 dark:border-neutral-800 transition-colors duration-300">
       <div className="max-w-[1400px] mx-auto">
         {/* Header Title Block */}
         <div className="flex flex-col items-center text-center mb-10">
@@ -357,7 +357,7 @@ export const SkillsEducationSection: React.FC = () => {
                     className="bg-[#FAF9F5] dark:bg-neutral-800 p-4 rounded-2xl border border-[#D9D7D0] dark:border-neutral-700 shadow-2xs hover:border-[#181818]/40 dark:hover:border-neutral-500 transition-all"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-mono text-[10px] uppercase font-bold text-[#181818] dark:text-[#3BB0C8] bg-[#F0EFEB] dark:bg-neutral-700 px-2.5 py-0.5 rounded border border-[#D9D7D0] dark:border-neutral-600">
+                      <span className="font-mono text-[10px] uppercase font-bold text-[#181818] dark:text-[#1F3B36] bg-[#F0EFEB] dark:bg-neutral-700 px-2.5 py-0.5 rounded border border-[#D9D7D0] dark:border-neutral-600">
                         {cert.badge}
                       </span>
                       <span className="font-mono text-xs text-[#8C8880] dark:text-neutral-400 font-medium">

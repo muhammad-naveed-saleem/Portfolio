@@ -37,7 +37,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenDemo }) =>
   };
 
   return (
-    <section id="contact" className="py-[100px] md:py-[160px] px-margin max-w-[1728px] mx-auto bg-[#FAF9F5] dark:bg-[#0B0F17] border-t border-[#D9D7D0]/40 dark:border-neutral-800 transition-colors duration-300">
+    <section id="contact" className="py-[100px] md:py-[160px] px-margin max-w-[1728px] mx-auto bg-[#FFFFE3] dark:bg-[#0B0F17] border-t border-[#D9D7D0]/40 dark:border-neutral-800 transition-colors duration-300">
       <div className="max-w-[1340px] mx-auto">
         {/* Header Header */}
         <div className="flex flex-col items-center text-center mb-12 md:mb-16">
@@ -67,8 +67,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenDemo }) =>
                   <p className="font-label text-xs text-[#8C8880] dark:text-neutral-400 uppercase tracking-wider font-bold">
                     AI Engineer • Agentic AI Specialist
                   </p>
-                  <div className="flex items-center gap-1.5 text-xs text-[#181818] dark:text-emerald-400 font-semibold mt-1">
-                    <span className="w-2 h-2 rounded-full bg-[#181818] dark:bg-emerald-400 animate-pulse"></span>
+                  <div className="flex items-center gap-1.5 text-xs text-[#181818] dark:text-[#1F3B36] font-semibold mt-1">
+                    <span className="w-2 h-2 rounded-full bg-[#181818] dark:bg-[#1F3B36] animate-pulse"></span>
                     <span>Available for Projects & Advisory</span>
                   </div>
                 </div>
@@ -92,7 +92,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenDemo }) =>
                     className="p-2 rounded-lg hover:bg-[#F0EFEB] dark:hover:bg-neutral-700 text-[#181818] dark:text-white transition-colors cursor-pointer shrink-0"
                     title="Copy Email"
                   >
-                    {copiedEmail ? <Check size={16} className="text-[#181818] dark:text-emerald-400" /> : <Copy size={16} />}
+                    {copiedEmail ? <Check size={16} className="text-[#181818] dark:text-[#1F3B36]" /> : <Copy size={16} />}
                   </button>
                 </div>
 
@@ -158,7 +158,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenDemo }) =>
           <div className="lg:col-span-7 bg-[#FFFDF8] dark:bg-neutral-900 rounded-[32px] p-8 md:p-12 border border-[#D9D7D0] dark:border-neutral-800 shadow-sm">
             {submitted ? (
               <div className="py-12 flex flex-col items-center text-center animate-in fade-in duration-300">
-                <div className="w-16 h-16 bg-[#F0EFEB] dark:bg-neutral-800 text-[#181818] dark:text-emerald-400 rounded-full flex items-center justify-center mb-6 border border-[#D9D7D0] dark:border-neutral-700">
+                <div className="w-16 h-16 bg-[#F0EFEB] dark:bg-neutral-800 text-[#181818] dark:text-[#1F3B36] rounded-full flex items-center justify-center mb-6 border border-[#D9D7D0] dark:border-neutral-700">
                   <CheckCircle2 size={32} />
                 </div>
                 <h3 className="font-display text-2xl font-semibold text-[#1B1B1B] dark:text-[#FAF9F5] mb-2">

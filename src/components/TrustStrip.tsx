@@ -19,12 +19,12 @@ export const TrustStrip: React.FC = () => {
   const marqueeList = [...techStack, ...techStack];
 
   return (
-    <section className="py-6 px-0 border-t border-b border-[#D9D7D0]/40 dark:border-neutral-800/80 w-full bg-[#FAF9F5] dark:bg-transparent relative z-10 transition-colors duration-300 overflow-hidden">
+    <section className="py-6 px-0 border-t border-b border-[#D9D7D0]/40 dark:border-neutral-800/80 w-full bg-[#FFFFE3] dark:bg-transparent relative z-10 transition-colors duration-300 overflow-hidden">
       <div className="px-4 sm:px-8 max-w-[1728px] mx-auto mb-3 flex items-center justify-between">
         <p className="font-label text-[10px] sm:text-xs text-[#8C8880] dark:text-neutral-400 uppercase tracking-widest font-bold">
           Specialized Agentic AI Frameworks & Platforms
         </p>
-        <span className="font-mono text-[9px] sm:text-[10px] bg-[#181818] dark:bg-neutral-800 text-white dark:text-emerald-400 px-2 py-0.5 rounded-full font-semibold border border-white/10">
+        <span className="font-mono text-[9px] sm:text-[10px] bg-[#181818] dark:bg-neutral-800 text-white dark:text-[#1F3B36] px-2 py-0.5 rounded-full font-semibold border border-white/10">
           • Live Stack Marquee
         </span>
       </div>
@@ -42,7 +42,7 @@ export const TrustStrip: React.FC = () => {
                   onMouseLeave={() => setActiveBrand(null)}
                   className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#F0EFEB] dark:bg-neutral-900/90 border border-[#D9D7D0]/50 dark:border-neutral-800/80 transition-all duration-200 cursor-pointer shadow-2xs"
                 >
-                  <Icon size={12} className="text-[#181818] dark:text-emerald-400" />
+                  <Icon size={12} className="text-[#181818] dark:text-[#1F3B36]" />
                   <span className="font-display text-[11px] sm:text-xs font-semibold tracking-tight text-[#1B1B1B] dark:text-[#FAF9F5]">
                     {tech.name}
                   </span>
@@ -51,7 +51,7 @@ export const TrustStrip: React.FC = () => {
                 {/* Hover Tooltip / Popover */}
                 {activeBrand === tech.name && (
                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 bg-[#181818] dark:bg-neutral-900 text-[#FAF9F5] p-2.5 rounded-lg shadow-2xl z-30 text-[11px] pointer-events-none border border-white/15 animate-in fade-in zoom-in-95 duration-200">
-                    <div className="font-semibold text-white dark:text-emerald-400 mb-0.5 flex items-center gap-1">
+                    <div className="font-semibold text-white dark:text-[#1F3B36] mb-0.5 flex items-center gap-1">
                       <Icon size={12} />
                       {tech.metric}
                     </div>

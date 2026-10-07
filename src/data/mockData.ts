@@ -3,13 +3,13 @@ import { BrandFile, ArticleUpdate } from '../types';
 export const DEVELOPER_INFO = {
   name: 'Muhammad Naveed',
   initials: 'MN',
-  title: 'AI Engineer • Agentic AI Specialist',
+  title: 'AI Engineer • Agentic AI Engineer',
   role: 'AI Engineer Focused on Agentic AI',
-  email: 'muhammadnaveedalijatt786@gmail.com',
-  githubUrl: 'https://github.com/naved42',
-  linkedinUrl: 'https://www.linkedin.com/in/naveedjat/',
+  email: ['muhammadnaveedalijatt786@gmail.com','naved.jatt.42@gmail.com'],
+  githubUrl: 'https://github.com/muhammad-naveed-saleem',
+  linkedinUrl: 'https://www.linkedin.com/in/m-naveed-saleem/',
   availability: 'Available for Projects & Advisory',
-  location: 'Global Remote / On-Site AI Engineering'
+  location: 'Global Remote / On-Site AI Engineering, Karachi Pakistan'
 };
 
 export interface Project {

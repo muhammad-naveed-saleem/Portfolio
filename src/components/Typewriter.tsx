@@ -93,7 +93,7 @@ export const Typewriter: React.FC<TypewriterProps> = ({
       <span>{displayText}</span>
       {showCursor && (
         <span
-          className={`inline-block animate-pulse font-mono ml-[1px] text-emerald-500 dark:text-[#3BB0C8] font-bold ${cursorClassName}`}
+          className={`inline-block animate-pulse font-mono ml-[1px] text-[#1F3B36] dark:text-[#1F3B36] font-bold ${cursorClassName}`}
         >
           {cursorChar}
         </span>
